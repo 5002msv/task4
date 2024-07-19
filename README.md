@@ -13,5 +13,15 @@ category. Implement features for multiple user roles (e.g., librarian,
 patron), data persistence using databases or file handling, and a user-
 friendly interface for easy navigation.
 output
++----------------------------------------+
+| Library Management System              |
+|----------------------------------------|
+| Username: [__________________]         |
+| Password: [__________________]         |
+|                                        |
+|                [Login]                 |
++----------------------------------------+
 
+Username: librarian
+Password: password
 
