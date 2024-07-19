@@ -1,0 +1,143 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+// Library Item Classes
+abstract class LibraryItem implements Serializable {
+    private String id;
+    private String title;
+    private String author;
+    private boolean isCheckedOut;
+    private Date dueDate;
+
+    public LibraryItem(String id, String title, String author) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.isCheckedOut = false;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public boolean isCheckedOut() {
+        return isCheckedOut;
+    }
+
+    public void setCheckedOut(boolean checkedOut) {
+        isCheckedOut = checkedOut;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    @Override
+    public String toString() {
+        return "LibraryItem{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", isCheckedOut=" + isCheckedOut +
+                ", dueDate=" + dueDate +
+                '}';
+    }
+}
+
+class Book extends LibraryItem {
+    public Book(String id, String title, String author) {
+        super(id, title, author);
+    }
+}
+
+class Magazine extends LibraryItem {
+    public Magazine(String id, String title, String author) {
+        super(id, title, author);
+    }
+}
+
+class DVD extends LibraryItem {
+    public DVD(String id, String title, String author) {
+        super(id, title, author);
+    }
+}
+
+// User Class
+class User implements Serializable {
+    private String username;
+    private String password;
+    private String role;
+
+    public User(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
+    public boolean authenticate(String username, String password) {
+        return this.username.equals(username) && this.password.equals(password);
+    }
+
+    public String getRole() {
+        return role;
+    }
+}
+
+// Library Class
+class Library implements Serializable {
+    private List<LibraryItem> items;
+
+    public Library() {
+        items = new ArrayList<>();
+    }
+
+    public void addItem(LibraryItem item) {
+        items.add(item);
+    }
+
+    public void removeItem(String id) {
+        items.removeIf(item -> item.getId().equals(id));
+    }
+
+    public LibraryItem searchById(String id) {
+        return items.stream().filter(item -> item.getId().equals(id)).findFirst().orElse(null);
+    }
+
+    public List<LibraryItem> searchByTitle(String title) {
+        List<LibraryItem> results = new ArrayList<>();
+        for (LibraryItem item : items) {
+            if (item.getTitle().equalsIgnoreCase(title)) {
+                results.add(item);
+            }
+        }
+        return results;
+    }
+
+    public List<LibraryItem> searchByAuthor(String author) {
+        List<LibraryItem> results = new ArrayList<>();
+        for (LibraryItem item : items) {
+            if (item.getAuthor().equalsIgnoreCase(author)) {
+                results.add(item);
+            }
+        }
+        return results;
+    }
+
+    public
